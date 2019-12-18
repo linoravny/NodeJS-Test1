@@ -1,11 +1,23 @@
 
-//RUN: $node app.js
+//RUN: $node app.js OR jshint app.js
+//user global module - (like window in JS)
 
-
-//Global Module - (like window in JS)
- //console is a global obj
 global.console.log(module);
-global.setTimeout(() => {
+global.setTimeout(() => { //es6
     console.log('Hello Linor!'); //can call directly without global first
-}, 1000);
+}, 500);
+
+// use Logger Class extends Event Emmiter
+const Logger = require('./logger'); //best practics - const and not var, prevent error on run time
+const EventEmitter = require('events'); // for event emitter class!
+const logger = new Logger();
+
+//Register a listener
+logger.on('messageLogged', (arg)=>{
+    console.log('events; Listener called ', arg)
+});
+
+logger.log('message');
+
+
 
